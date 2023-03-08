@@ -6,20 +6,38 @@ import java.util.Arrays;
 public class Arrays_01 {
     public static void main(String[] args) {
 //        int[] arr = {5,20,12,20,10};
-        int[] arr = {10,20,20,30,30,30,30};
+//        int[] arr = {10,20,20,30,30,30,30};
+        int[] arr = {8,5,0,10,0,20};
 
 
 //        int ans = delete(arr, 12);
-        System.out.println(largest(arr));
-        System.out.println(findSecondLargest(arr));
-        System.out.println(checkIfArrayIsSorted(arr));
+//        System.out.println(largest(arr));
+//        System.out.println(findSecondLargest(arr));
+//        System.out.println(checkIfArrayIsSorted(arr));
+//
+//        reverseAnArray(arr);
+//        System.out.println(Arrays.toString(arr));
+//
+//
+//        removeDupsFromArray(arr);
 
-        reverseAnArray(arr);
+        moveZeroesToEnd(arr);
+    }
+
+    private static void moveZeroesToEnd(int[] arr) {
+        int i = 0, j = 0, temp;
+        while (j < arr.length){
+            if (arr[j] != 0){
+//            swap the elements at i and j
+                temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+                i++;
+            }
+            j++;
+        }
+
         System.out.println(Arrays.toString(arr));
-
-
-        removeDupsFromArray(arr);
-
     }
 
     private static int removeDupsFromArray(int[] arr) {
