@@ -1,12 +1,14 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Arrays_01 {
     public static void main(String[] args) {
 //        int[] arr = {5,20,12,20,10};
 //        int[] arr = {10,20,20,30,30,30,30};
-        int[] arr = {0,1,1,0,1,1,1,0,1};
+        int[] arr = {3,4,8,-9,20,6};
 
 
 //        int ans = delete(arr, 12);
@@ -30,7 +32,138 @@ public class Arrays_01 {
 
 //        getTrappingRainWater(arr);
 
-        max1sInArray(arr);
+//        max1sInArray(arr);
+
+//        maxSubArraySum(arr);
+
+//        maxLengthEvenOddSubArray(arr);
+
+//        System.out.println(majorityElement(arr));
+
+//        todo Sliding Window
+//        maxSumOfkElements(arr, 3);
+
+//        System.out.println(subarrayWithGivenSum(arr, 3,  33));
+
+//        nBonacciNumbers(4 ,10);
+
+        System.out.println(prefixSum(arr));
+    }
+
+    private static boolean prefixSum(int[] arr) {
+//        cal the total array sum:
+        int totalSum = 0;
+        for (int elem: arr)
+            totalSum += elem;
+
+        int leftSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (leftSum == totalSum - arr[i]){
+                return true;
+            }
+            leftSum += arr[i];
+            totalSum -= arr[i];
+        }
+        return false;
+    }
+
+    private static void nBonacciNumbers(int n, int m) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n - 1; i++) {
+            list.add(0);
+        }
+        list.add(1);
+//        list => [0,0,1]
+
+        int cur = 0, i = 1;
+        for (int j = n; j < m; j++) {
+            cur = cur + list.get(j-1);
+            if (j-n-1 > 0){
+                cur -= list.get(j-n-1);
+            }
+
+            list.add(cur);
+            i++;
+        }
+
+        System.out.println(list);
+    }
+
+    private static boolean subarrayWithGivenSum(int[] arr, int k, int total) {
+        int cur = 0;
+        for (int i = 0; i < k; i++) {
+            cur += arr[i];
+        }
+
+        int i = 1, j = k;
+        while (j < arr.length){
+            cur = cur - arr[i-1] + arr[j];
+            if (cur == total)
+                return true;
+            i++;j++;
+        }
+        return false;
+    }
+
+    private static int maxSumOfkElements(int[] arr, int k) {
+        int cur = 0, max = -1;
+        for (int i = 0; i < k; i++) {
+            cur += arr[i];
+        }
+        max = cur;
+
+        int i = 1, j = k;
+        while (j < arr.length){
+            cur = cur - arr[i-1] + arr[j];
+            max = Math.max(max, cur);
+            i++;j++;
+        }
+        System.out.println("max = " + max);
+        return max;
+    }
+
+    private static int majorityElement(int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (map.containsKey(arr[i])){
+                int val = map.get(arr[i]);
+                if (val+1 > (arr.length/2))
+                    return i;
+                map.put(arr[i], val+1);
+            }else {
+                map.put(arr[i], 1);
+            }
+        }
+        return -1;
+    }
+
+    private static int maxLengthEvenOddSubArray(int[] arr) {
+        int count = 1, max = -1, cur, prev;
+        for (int i = 1; i < arr.length; i++) {
+            cur = arr[i]; prev = arr[i-1];
+            if (cur%2==0 && prev%2!=0 ||
+                    cur%2!=0 && prev%2==0)
+                count += 1;
+            else
+                count = 1;
+
+            max = Math.max(max, count);
+        }
+        System.out.println("max = " + max);
+        return max;
+    }
+
+    private static int maxSubArraySum(int[] arr) {
+        int cur = 0, max = arr[0];
+        for (int elem : arr) {
+            cur += elem;
+            max = Math.max(max, cur);
+            if (cur < 0) {
+                cur = 0;
+            }
+        }
+        System.out.println("max = " + max);
+        return max;
     }
 
     private static int max1sInArray(int[] arr) {
