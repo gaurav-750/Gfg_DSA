@@ -47,7 +47,10 @@ public class Arrays_01 {
 
 //        nBonacciNumbers(4 ,10);
 
-        System.out.println(prefixSum(arr));
+//        System.out.println(prefixSum(arr));
+
+//        todo SORTING:
+//        bubbleSort(arr);
     }
 
     private static boolean prefixSum(int[] arr) {
